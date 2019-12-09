@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.Controller">
+  <children>
+    <BorderPane id="AnchorPane" minHeight="700.0" prefHeight="700.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <Canvas fx:id="canvas" disable="false" height="700.0" scaleX="1.0909115783786871" scaleY="0.9475624998918601" visible="true" width="900.0" />
+      </center>
+      <top>
+        <HBox prefHeight="49.0" prefWidth="600.0">
+          <children>
+            <ColorPicker fx:id="colorPicker" prefHeight="29.0">
+              <HBox.margin>
+                <Insets left="10.0" right="5.0" top="10.0" />
+              </HBox.margin>
+            </ColorPicker>
+            <Label prefHeight="25.0" prefWidth="35.0" text="Size" textAlignment="CENTER">
+              <HBox.margin>
+                <Insets top="10.0" fx:id="x2" />
+              </HBox.margin>
+            </Label>
+            <TextField fx:id="sizeSetter" prefHeight="29.0" prefWidth="49.0">
+              <HBox.margin>
+                <Insets right="5.0" top="10.0" fx:id="x1" />
+              </HBox.margin>
+            </TextField>
+            <Button fx:id="paint" mnemonicParsing="false" prefHeight="29.0" text="Paint">
+              <HBox.margin>
+                <Insets right="5.0" top="10.0" fx:id="x6" />
+              </HBox.margin>
+            </Button>
+            <Button fx:id="circle" mnemonicParsing="false" prefHeight="25.0" text="Circle">
+              <graphic>
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="/sample/005-circle-outline.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+              <HBox.margin>
+                <Insets right="5.0" top="10.0" fx:id="x3" />
+              </HBox.margin>
+            </Button>
+            <Button fx:id="rectangle" mnemonicParsing="false" onAction="#handleRectanglePressed" prefHeight="29.0" text="Rectangle">
+              <graphic>
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="/sample/006-rectangular.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+              <HBox.margin>
+                <Insets right="5.0" top="10.0" fx:id="x7" />
+              </HBox.margin>
+            </Button>
+            <Button fx:id="triangle" mnemonicParsing="false" text="Triangle">
+              <graphic>
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="/sample/004-triangle-outline-variant.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+              <HBox.margin>
+                <Insets right="5.0" top="10.0" fx:id="x4" />
+              </HBox.margin>
+            </Button>
+            <Button fx:id="brush" mnemonicParsing="false" onAction="#handleBrushPressed" prefHeight="25.0" text="Brush">
+              <graphic>
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="/sample/002-eraser.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+              <HBox.margin>
+                <Insets right="5.0" top="10.0" fx:id="x5" />
+              </HBox.margin>
+            </Button>
+            <Button fx:id="clear" mnemonicParsing="false" onAction="#handleClearPressed" prefHeight="30.0" prefWidth="74.0" text="Clear" HBox.margin="$x1">
+              <graphic>
+                <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                    <Image url="/sample/003-taking-notes-symbol.png" />
+                  </image>
+                </ImageView>
+              </graphic>
+            </Button>
+          </children>
+        </HBox>
+      </top>
+    </BorderPane>
+  </children>
+</AnchorPane>
