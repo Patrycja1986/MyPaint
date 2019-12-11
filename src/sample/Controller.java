@@ -16,7 +16,7 @@ public class Controller {
     @FXML
     AnchorPane anchorPane;
     @FXML
-    Button brush;
+    Button rubber;
     @FXML
     Button clear;
     @FXML
@@ -26,7 +26,7 @@ public class Controller {
     @FXML
     Canvas canvas;
     @FXML
-    Button paint;
+    Button brush;
     @FXML
     Button triangle;
     @FXML
@@ -35,9 +35,12 @@ public class Controller {
     Button rectangle;
 
     Tool currentTool;
+    Shape shape;
 
     double startX;
     double startY;
+    double draggedX;
+    double draggedY;
     double endX;
     double endY;
     double width;
@@ -47,35 +50,25 @@ public class Controller {
     public void initialize() {
 
         anchorPane.setStyle("-fx-background-color: white");
-        GraphicsContext gc = canvas.getGraphicsContext2D();
         canvas.setOnMousePressed(mouseEvent -> {
             startX = mouseEvent.getX();
             startY = mouseEvent.getY();
-            System.out.println("Pressed" + startX + " " + startY);
         });
-
         canvas.setOnMouseDragged(mouseEvent -> {
-            startX = mouseEvent.getX();
-            startY = mouseEvent.getY();
-            width = Double.parseDouble(sizeSetter.getText());
-            height = Double.parseDouble(sizeSetter.getText());
-            System.out.println("Dragged" + startX + "" + startY);
-
-            gc.setFill(colorPicker.getValue());
-            gc.fillOval(startX, startY, width, height);
-
+            endX = mouseEvent.getX();
+            endY= mouseEvent.getY();
+            drawPickedValueInColor();
         });
         canvas.setOnMouseReleased(mouseEvent -> {
             endX = mouseEvent.getX();
             endY = mouseEvent.getY();
-            System.out.println("Released" + endX + " " + endY);
         });
     }
 
     @FXML
-    public void handleBrushPressed(ActionEvent actionEvent) {
+    public void handleRubberPressed(ActionEvent actionEvent) {
         colorPicker.setValue(Color.WHITE);
-        brush.setOnMouseDragged(mouseEvent -> {
+        rubber.setOnMouseDragged(mouseEvent -> {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             gc.setFill(colorPicker.getValue());
             gc.fillOval(startX, startY, width, height);
@@ -90,22 +83,46 @@ public class Controller {
 
     @FXML
     public void handleRectanglePressed(ActionEvent actionEvent) {
-        //currentTool = Tool.RECTANGLE;
+        currentTool = Tool.RECTANGLE;
+    }
+    @FXML
+    public void handleBrushPressed(ActionEvent actionEvent){
+        currentTool=Tool.BRUSH;
+    }
+    @FXML
+    public void handleSquerePressed(ActionEvent actionEvent){currentTool=Tool.SQUERE;}
 
-
+    @FXML
+    public Shape drawPickedValueInColor(){
+        GraphicsContext gc= canvas.getGraphicsContext2D();
+        Shape shape= createShape();
+        shape.setFillColor(colorPicker.getValue());
+        shape.draw(gc);
+        System.out.println(colorPicker.getValue());
+        return shape;
     }
 
     @FXML
     public Shape createShape() {
-        double x = Math.min(startX, endX);
-        double y = Math.min(endX, endY);
+
+       double x = Math.min(startX, endX);
+       double y = Math.min(startY, endY);
         double width = Math.abs(endX - startX);
         double height = Math.abs(endY - startY);
 
         switch (currentTool) {
             case RECTANGLE:
                 System.out.println("rysuję prostokąt");
-                return new Rectangle(x, y, width, height);
+                return new Rectangle(x,y,width, height);
+            case BRUSH:
+                double choosedWidth=Double.parseDouble(sizeSetter.getText());
+                double choosedHeight=Double.parseDouble(sizeSetter.getText());
+                System.out.println("rysuję co mi się podoba");
+                 return new Brush(x,y,choosedWidth,choosedHeight);
+            case SQUERE:
+                System.out.println("rysuję kwadrat");
+                return new Squere(x,y,width,height);
+
         }
         return null;
     }
