@@ -41,8 +41,6 @@ public class Controller {
     double startY;
     double draggedX;
     double draggedY;
-    double endX;
-    double endY;
     double width;
     double height;
 
@@ -55,14 +53,14 @@ public class Controller {
             startY = mouseEvent.getY();
         });
         canvas.setOnMouseDragged(mouseEvent -> {
-            endX = mouseEvent.getX();
-            endY= mouseEvent.getY();
+            draggedX = mouseEvent.getX();
+            draggedY= mouseEvent.getY();
             drawPickedValueInColor();
         });
-        canvas.setOnMouseReleased(mouseEvent -> {
+        /*canvas.setOnMouseReleased(mouseEvent -> {
             endX = mouseEvent.getX();
             endY = mouseEvent.getY();
-        });
+        });*/
     }
 
     @FXML
@@ -105,10 +103,10 @@ public class Controller {
     @FXML
     public Shape createShape() {
 
-       double x = Math.min(startX, endX);
-       double y = Math.min(startY, endY);
-        double width = Math.abs(endX - startX);
-        double height = Math.abs(endY - startY);
+       double x = Math.min(startX, draggedX);
+       double y = Math.min(startY, draggedY);
+        double width = Math.abs(draggedX - startX);
+        double height = Math.abs(draggedY - startY);
 
         switch (currentTool) {
             case RECTANGLE:
@@ -118,7 +116,7 @@ public class Controller {
                 double choosedWidth=Double.parseDouble(sizeSetter.getText());
                 double choosedHeight=Double.parseDouble(sizeSetter.getText());
                 System.out.println("rysuję co mi się podoba");
-                 return new Brush(x,y,choosedWidth,choosedHeight);
+                 return new Brush(draggedX,draggedY,choosedWidth,choosedHeight);
             case SQUERE:
                 System.out.println("rysuję kwadrat");
                 return new Squere(x,y,width,height);
