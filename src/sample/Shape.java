@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 
 abstract class Shape {
     private Color fillColor;
+    private Color strokeColor;
 
     public Color getFillColor() {
         return fillColor;
@@ -16,6 +17,13 @@ abstract class Shape {
         this.fillColor = fillColor;
     }
 
+    public Color getStrokeColor() {
+        return strokeColor;
+    }
+
+    public void setStrokeColor(Color strokeColor) {
+        this.strokeColor = strokeColor;
+    }
 
     public abstract void draw(GraphicsContext gc);
 }

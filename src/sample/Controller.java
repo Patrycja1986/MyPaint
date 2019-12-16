@@ -11,6 +11,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 
+import java.util.ArrayList;
+
 public class Controller {
 
     @FXML
@@ -26,26 +28,23 @@ public class Controller {
     @FXML
     Canvas canvas;
     @FXML
-    Button brush;
-    @FXML
     Button triangle;
     @FXML
     Button circle;
     @FXML
     Button rectangle;
 
-    Tool currentTool;
-    Shape shape;
+    private Tool currentTool;
 
-    double startX;
-    double startY;
-    double draggedX;
-    double draggedY;
-    double width;
-    double height;
-
+    private double startX;
+    private double startY;
+    private double draggedX;
+    private double draggedY;
+    private double width;
+    private double height;
 
     public void initialize() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
 
         anchorPane.setStyle("-fx-background-color: white");
         canvas.setOnMousePressed(mouseEvent -> {
@@ -54,13 +53,11 @@ public class Controller {
         });
         canvas.setOnMouseDragged(mouseEvent -> {
             draggedX = mouseEvent.getX();
-            draggedY= mouseEvent.getY();
+            draggedY = mouseEvent.getY();
+            drawPickedValueInColor();
+            refresh(gc);
             drawPickedValueInColor();
         });
-        /*canvas.setOnMouseReleased(mouseEvent -> {
-            endX = mouseEvent.getX();
-            endY = mouseEvent.getY();
-        });*/
     }
 
     @FXML
@@ -74,54 +71,59 @@ public class Controller {
     }
 
     @FXML
-    public void handleClearPressed(ActionEvent actionEvent) {
+    public void handleClearPressed() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas.getHeight(), canvas.getWidth());
     }
 
     @FXML
-    public void handleRectanglePressed(ActionEvent actionEvent) {
+    public void handleRectanglePressed() {
         currentTool = Tool.RECTANGLE;
     }
-    @FXML
-    public void handleBrushPressed(ActionEvent actionEvent){
-        currentTool=Tool.BRUSH;
-    }
-    @FXML
-    public void handleSquerePressed(ActionEvent actionEvent){currentTool=Tool.SQUERE;}
 
     @FXML
-    public Shape drawPickedValueInColor(){
-        GraphicsContext gc= canvas.getGraphicsContext2D();
-        Shape shape= createShape();
+    public void handleBrushPressed() {
+        currentTool = Tool.BRUSH;
+    }
+
+    @FXML
+    public void handleSquerePressed() {
+        currentTool = Tool.SQUERE;
+    }
+
+    @FXML
+    private void drawPickedValueInColor() {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Shape shape = createShape();
         shape.setFillColor(colorPicker.getValue());
         shape.draw(gc);
         System.out.println(colorPicker.getValue());
-        return shape;
     }
 
     @FXML
-    public Shape createShape() {
+    private Shape createShape() {
 
-       double x = Math.min(startX, draggedX);
-       double y = Math.min(startY, draggedY);
+        double x = Math.min(startX, draggedX);
+        double y = Math.min(startY, draggedY);
+
         double width = Math.abs(draggedX - startX);
         double height = Math.abs(draggedY - startY);
 
+
         switch (currentTool) {
             case RECTANGLE:
-                System.out.println("rysuję prostokąt");
-                return new Rectangle(x,y,width, height);
+                return new Rectangle(x,y,width,height);
             case BRUSH:
-                double choosedWidth=Double.parseDouble(sizeSetter.getText());
-                double choosedHeight=Double.parseDouble(sizeSetter.getText());
-                System.out.println("rysuję co mi się podoba");
-                 return new Brush(draggedX,draggedY,choosedWidth,choosedHeight);
+                double choosedWidth = Double.parseDouble(sizeSetter.getText());
+                double choosedHeight = Double.parseDouble(sizeSetter.getText());
+                return new Brush(draggedX, draggedY, choosedWidth, choosedHeight);
             case SQUERE:
-                System.out.println("rysuję kwadrat");
-                return new Squere(x,y,width,height);
+                return new Squere(x, y, width, height);
 
         }
         return null;
+    }
+    private void refresh(GraphicsContext gc){
+        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
     }
 }

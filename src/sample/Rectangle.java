@@ -51,8 +51,9 @@ public class Rectangle extends Shape {
 
         @Override
         public void draw(GraphicsContext gc) {
+        
+            gc.setStroke(Color.BLACK);
             gc.setFill(getFillColor());
             gc.fillRect(x,y,width,height);
-            gc.strokeRect(x,y,width,height);;
         }
 }
