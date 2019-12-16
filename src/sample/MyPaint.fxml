@@ -16,7 +16,7 @@
   <children>
     <BorderPane id="AnchorPane" minHeight="700.0" prefHeight="700.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-        <Canvas fx:id="canvas" disable="false" height="700.0" scaleX="1.0909115783786871" scaleY="0.9475624998918601" visible="true" width="900.0" />
+        <Canvas fx:id="canvas" disable="false" height="600.0" scaleX="1.0909115783786871" scaleY="0.9475624998918601" visible="true" width="600.0" />
       </center>
       <top>
         <HBox prefHeight="49.0" prefWidth="600.0">
@@ -41,11 +41,11 @@
                 <Insets right="5.0" top="10.0" fx:id="x6" />
               </HBox.margin>
             </Button>
-            <Button fx:id="circle" mnemonicParsing="false" prefHeight="29.0" text="Circle">
+            <Button fx:id="circle" onAction="#handleCirclePressed" mnemonicParsing="false" prefHeight="29.0" text="Circle">
               <graphic>
                 <ImageView fitHeight="24.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="/sample/005-circle-outline.png" />
+                    <Image url="/sample/icons/005-circle-outline.png" />
                   </image>
                 </ImageView>
               </graphic>
@@ -57,7 +57,7 @@
               <graphic>
                 <ImageView fitHeight="24.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="/sample/006-rectangular.png" />
+                    <Image url="/sample/icons/006-rectangular.png" />
                   </image>
                 </ImageView>
               </graphic>
@@ -70,11 +70,11 @@
                 <Insets right="5.0" top="10.0" fx:id="x8" />
               </HBox.margin>
             </Button>
-            <Button fx:id="triangle" mnemonicParsing="false" text="Triangle">
+            <Button fx:id="triangle" onAction="#handleTrianglePressed" mnemonicParsing="false" text="Triangle">
               <graphic>
                 <ImageView fitHeight="24.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="/sample/004-triangle-outline-variant.png" />
+                    <Image url="/sample/icons/004-triangle-outline-variant.png" />
                   </image>
                 </ImageView>
               </graphic>
@@ -86,7 +86,7 @@
               <graphic>
                 <ImageView fitHeight="24.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="/sample/002-eraser.png" />
+                    <Image url="/sample/icons/002-eraser.png" />
                   </image>
                 </ImageView>
               </graphic>
@@ -98,7 +98,7 @@
               <graphic>
                 <ImageView fitHeight="24.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                   <image>
-                    <Image url="/sample/003-taking-notes-symbol.png" />
+                    <Image url="/sample/icons/003-taking-notes-symbol.png" />
                   </image>
                 </ImageView>
               </graphic>

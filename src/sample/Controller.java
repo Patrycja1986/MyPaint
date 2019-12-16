@@ -1,6 +1,4 @@
 package sample;
-
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -10,8 +8,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
@@ -26,13 +24,13 @@ public class Controller {
     @FXML
     TextField sizeSetter;
     @FXML
-    Canvas canvas;
-    @FXML
     Button triangle;
     @FXML
     Button circle;
     @FXML
     Button rectangle;
+    @FXML
+    Canvas canvas;
 
     private Tool currentTool;
 
@@ -92,12 +90,23 @@ public class Controller {
     }
 
     @FXML
-    private void drawPickedValueInColor() {
+    public void handleTrianglePressed() {
+        currentTool = Tool.TRIANGLE;
+    }
+
+    @FXML
+    void handleCirclePressed() {
+        currentTool = Tool.CIRCLE;
+    }
+
+    @FXML
+    private Shape drawPickedValueInColor() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         Shape shape = createShape();
         shape.setFillColor(colorPicker.getValue());
         shape.draw(gc);
         System.out.println(colorPicker.getValue());
+        return shape;
     }
 
     @FXML
@@ -112,18 +121,23 @@ public class Controller {
 
         switch (currentTool) {
             case RECTANGLE:
-                return new Rectangle(x,y,width,height);
+                return new Rectangle(x, y, width, height);
             case BRUSH:
                 double choosedWidth = Double.parseDouble(sizeSetter.getText());
                 double choosedHeight = Double.parseDouble(sizeSetter.getText());
                 return new Brush(draggedX, draggedY, choosedWidth, choosedHeight);
             case SQUERE:
                 return new Squere(x, y, width, height);
+            case TRIANGLE:
+                return new Triangle(x, y, width, height);
+            case CIRCLE:
+                return new Circle(x, y, width, height);
 
         }
         return null;
     }
-    private void refresh(GraphicsContext gc){
-        gc.clearRect(0,0,canvas.getWidth(),canvas.getHeight());
+
+    private void refresh(GraphicsContext gc) {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
 }
